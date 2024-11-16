@@ -6,6 +6,11 @@ Welcome to **Kismet Web**! A cool project created by myself and my friends.
 
 Feel free to explore and use the code, but please make sure to provide **proper credits** if you decide to use it.
 
+## 🌐 Website
+
+You can view the live website here:  
+[Click me!](https://fevps.github.io/website/)
+
 ## 📁 Project Info
 - **Built with**: [Visual Studio Code](https://code.visualstudio.com/)
 - **Owners**:
