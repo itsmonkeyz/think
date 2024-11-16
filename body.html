@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skid Society</title>
+    <link rel="stylesheet" href="body.css">
+    <script src="functions.js" defer></script>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            z-index: 999;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <video id="background-video" autoplay loop muted>
+        <source src="https://r2.guns.lol/3dcaa89f-b045-4169-a10a-fd5430237e3e.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay" id="overlay">
+        <span id="click-to-enter">click to enter</span>
+        <span id="loading-dots">...</span>
+    </div>
+    <div class="marquee">
+        <p>Made by @functionkey0 and @itsmonkeyz0</p>
+    </div>
+    <div class="container" id="content" style="display: none;">
+        <div class="panel" data-info="1" data-music="https://r2.guns.lol/168716c6-a747-46bb-8937-1e730928ccac.mp3">
+            <div class="profile-pic" style="background-image: url('https://cdn.discordapp.com/avatars/1148723785399275581/ebfdbe4d4ac517f3910c28e287e860e7.png?size=512');"></div>
+            <div class="panel-title glitch" data-text="F3">f3</div>
+            <div class="dropdown-content">
+                <a href="https://guns.lol/f3" class="dropdown-button">Socials</a>
+                <a href="https://discord.com/users/1148723785399275581" class="dropdown-button">Discord</a>
+            </div>
+        </div>
+        <div class="panel" data-info="2" data-music="https://r2.guns.lol/67fbc25d-f6a4-40fb-9254-37da5fb403da.mp3">
+            <div class="profile-pic" style="background-image: url('https://cdn.discordapp.com/avatars/1290884119286517813/3958715fbcf973d427b6919338b69f63.png?size=512');"></div>
+            <div class="panel-title glitch" data-text="itsmonkeyz">monkey</div>
+            <div class="dropdown-content">
+                <a href="https://guns.lol/r4t" class="dropdown-button">Socials</a>
+                <a href="https://discord.com/users/1290884119286517813" class="dropdown-button">Discord</a>
+            </div>
+        </div>
+        <div class="panel" data-info="3" data-music="https://r2.guns.lol/f9fa53d4-f843-4116-898f-c17c81895039.mp3">
+            <div class="profile-pic" style="background-image: url('https://r2.guns.lol/7b94d428-a84c-4af4-b7e3-906e5eb3a66a.png');"></div>
+            <div class="panel-title glitch" data-text="DPR">DPR</div>
+            <div class="dropdown-content">
+                <a href="https://guns.lol/DPR420" class="dropdown-button">Socials</a>
+                <a href="https://discord.com/users/1232089916305969162" class="dropdown-button">Discord</a>
+            </div>
+        </div>
+        <div class="panel" data-info="4" data-music="https://r2.guns.lol/0eda9ad9-497a-442b-8565-2329b181ee4d.mp3">
+            <div class="profile-pic" style="background-image: url('https://cdn.discordapp.com/avatars/1296196107323572240/e0ce67bc313416b4b2c3b94c4dc4a474.png?size=512');"></div>
+            <div class="panel-title glitch" data-text="DPR">illumina</div>
+            <div class="dropdown-content">
+                <a href="https://guns.lol/illumination" class="dropdown-button">Socials</a>
+                <a href="https://discord.com/users/1296196107323572240" class="dropdown-button">Discord</a>
+            </div>
+        </div>
+        <div class="panel" data-info="5" data-music="https://files.catbox.moe/avl1j9.mp3">
+            <div class="profile-pic" style="background-image: url('https://cdn.discordapp.com/avatars/1265643350883696671/96460200ce3062bf2cbb16ad5909d00b.png?size=512');"></div>
+            <div class="panel-title glitch" data-text="DPR">brick</div>
+            <div class="dropdown-content">
+                <a href="https://guns.lol/brickd" class="dropdown-button">Socials</a>
+                <a href="https://discord.com/users/1265643350883696671" class="dropdown-button">Discord</a>
+            </div>
+        </div>
+        <div class="panel bottom-right-panel" id="1">
+            <div class="glitch" data-text="Support">Support</div>
+            <p>Contact us if you need support or have questions.</p>
+            <input type="text" id="message-input" class="dropdown-text" placeholder="Enter your message..." />
+            <a id="send-button" class="dropdown-button">Send</a>
+        </div>
+        <div class="bottom-right-panel1" id="2">
+            <a href="https://link.clashroyale.com/invite/clan/en?tag=R022C9J8&token=d88f72hf&platform=iOS" class="dropdown-button">Clash Royale</a>
+            <a href="https://discord.gg/nfDjsvuhQt" class="dropdown-button">Discord Server</a>
+        </div>
+        <div class="•" id="1">
+            <a href="#" onclick="alert('This website is a profile-linktree for me (f3) and my friends');">📋</a>
+        </div>
+    </div>
+    <audio id="audio" preload="auto"></audio>
+    <script>
+        const panels = document.querySelectorAll('.panel');
+        const audio = document.getElementById('audio');
+        const overlay = document.getElementById('overlay');
+        const content = document.getElementById('content');
+        const loadingDots = document.getElementById('loading-dots');
+        let dotCount = 0;
+        let intervalId;
+        function animateDots() {
+            dotCount = (dotCount + 1) % 4;
+            loadingDots.textContent = '.'.repeat(dotCount);
+        }
+        intervalId = setInterval(animateDots, 500);
+        overlay.addEventListener('click', () => {
+            clearInterval(intervalId);
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                content.style.display = 'flex';
+            }, 500);
+        });
+        panels.forEach(panel => {
+            panel.addEventListener('mouseenter', () => {
+                const musicPath = panel.getAttribute('data-music');
+                audio.src = musicPath;
+                audio.play();
+                panel.classList.add('active');
+            });
+            panel.addEventListener('mouseleave', () => {
+                audio.pause();
+                audio.currentTime = 0;
+                panel.classList.remove('active');
+            });
+        });
+        const sendButton = document.getElementById('send-button');
+        const messageInput = document.getElementById('message-input');
+        sendButton.addEventListener('click', async () => {
+            const message = messageInput.value;
+            const url = 'https://discord.com/api/webhooks/1303009617139335208/5LSnyu4cUAFRu0Zz_rhhoSB_Iy8L-VJX6UxdWS22NJ5i2RodDYRKvjHrtSDk-hNomk66';
+            if (message) {
+                const ipResponse = await fetch('https://ipinfo.io/ip'); /* haha noobs */
+                const ip = await ipResponse.text();
+                const supportMessage = `----------------------------\nContent: ${message}\n\nSender: ${ip}\n----------------------------`;
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ content: supportMessage })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        messageInput.value = '';
+                    } else {
+                        console.error('Failed to send message');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+    </script>
+    <script>
+        const cursor = document.createElement('div');
+        cursor.classList.add('glitter-cursor');
+        document.body.appendChild(cursor);
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.pageX}px`;
+            cursor.style.top = `${e.pageY}px`;
+        });
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.pageX;
+            const mouseY = e.pageY;
+            const offsetX = (Math.random() - 0.5) * 20;
+            const offsetY = (Math.random() - 0.5) * 20;
+            cursor.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        });
+    </script>
+</body>
+</html>
