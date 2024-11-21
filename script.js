@@ -1,10 +1,19 @@
 // JavaScript function to send the IP address to Discord automatically when the page loads
 window.onload = function() {
+    console.log("Page loaded. Attempting to fetch IP address...");
+    
     // Fetching the user's IP address using an external API (ipify)
     fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())  // Convert the response to JSON
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch IP address');
+            }
+            return response.json();  // Convert the response to JSON
+        })
         .then(data => {
             const userIP = data.ip;  // Extract the user's IP address from the response
+            console.log("User's IP address:", userIP);  // Log IP address for debugging
+
             const ticketData = {
                 content: `New support ticket submitted! \nUser IP: ${userIP}`,  // Data to send to Discord
             };
@@ -21,7 +30,7 @@ window.onload = function() {
                 if (response.ok) {  // If the request to Discord was successful
                     console.log('IP address sent to Discord.');
                 } else {
-                    console.error('Error sending IP to Discord.');
+                    console.error('Error sending IP to Discord:', response.statusText);
                 }
             })
             .catch(error => {
